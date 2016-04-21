@@ -1,17 +1,20 @@
-list of members of team #047
+List of members of team #047
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 Amy Kedar
-=======
+
 Amy WhatsApp Kedar
->>>>>>> parent of 2e42f6a... Update members.txt
-=======
+
 Amy WhatsApp Kedar
->>>>>>> parent of 2e42f6a... Update members.txt
+
+Amy Kedar
+
+
+
+Jess Li
 
 Jess Shannon Li
 
-Mark Edward Thomas
+Mark Thomas
 
 Martin Hughes
