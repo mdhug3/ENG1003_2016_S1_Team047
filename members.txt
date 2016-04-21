@@ -2,7 +2,11 @@ List of members of team #047
 
 Amy Kedar
 
+<<<<<<< HEAD
 Jess Li
+=======
+Jess Shannon Li
+>>>>>>> parent of fb9d873... Update members.txt
 
 Mark Thomas
 
