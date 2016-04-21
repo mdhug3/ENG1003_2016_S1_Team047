@@ -1,6 +1,10 @@
 list of members of team #047
 
+<<<<<<< HEAD
 Amy Kedar
+=======
+Amy WhatsApp Kedar
+>>>>>>> parent of 2e42f6a... Update members.txt
 
 Jess Shannon Li
 
