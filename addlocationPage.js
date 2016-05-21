@@ -44,15 +44,18 @@ function iMap() {
     center: {lat: -34.397, lng: 150.644}
   });
   var geocoder = new google.maps.Geocoder();
-  var infowindow = new google.maps.InfoWindow;
+  var infowindow = new google.maps.InfoWindow({
+    content: 'test'
+  });
 
 
   document.getElementById('address').addEventListener('click', function() {
     geocodeAddress(geocoder, map, true, infowindow);
   });
   document.getElementById('Address').addEventListener('input', function() {
-    geocodeAddress(geocoder, map, false);
+    geocodeAddress(geocoder, map, false, infowindow);
   });
+
 }
 
 function geocodeAddress(geocoder, resultsMap, isClicked, infowindow) {
@@ -61,12 +64,15 @@ function geocodeAddress(geocoder, resultsMap, isClicked, infowindow) {
     if (status === google.maps.GeocoderStatus.OK && isClicked == true) {
       isClicked = false;
       resultsMap.setCenter(results[0].geometry.location);
-      console.log(results[0].formatted_address)
+      //console.log(results[0].formatted_address)
       var marker = new google.maps.Marker({
         map: resultsMap,
         position: results[0].geometry.location
       });
+      var infowindow = new google.maps.InfoWindow;
       infowindow.setContent(results[0].formatted_address);
+      infowindow.open(resultsMap, marker);
+      //infowindow.open(map, marker);
       var string = JSON.stringify(results[0].geometry.location)//transfer the data into the sting style
       localStorage.setItem("address",string)//store the string we get into the local storage
       //infowindow.open(map, marker);
