@@ -47,7 +47,7 @@ function LocationWeatherCache()
     this.locationAtIndex = function(index) {
         for (i=0; i<=locations.length; i++ )
             {
-                return location[i];
+                return locations[i];
             }
     };
 
@@ -71,6 +71,9 @@ function LocationWeatherCache()
         locations.push(location);
         console.log(locations);
         
+        //var position = {latitude:latitude, longitude:longitude, nickname:nickname, forecasts: ""};
+        //locations.push(position);
+        //return locations[0];
         
     };
 
@@ -78,6 +81,11 @@ function LocationWeatherCache()
     // 
     this.removeLocationAtIndex = function(index)
     {
+        var ind= locations.indexOf(index);
+        if (ind != -1)
+            {
+                locations.splice(ind,1);
+            }
         
     }
 
@@ -87,6 +95,9 @@ function LocationWeatherCache()
     //
     this.toJSON = function() {
         
+        var locationString = JSON.stringify(locations);
+        localStorage.setItem("locationStr",locationString);
+        
     };
 
     // Given a public-data-only version of the class (such as from
@@ -94,6 +105,10 @@ function LocationWeatherCache()
     // instance to match that version.
     //
     this.initialiseFromPDO = function(locationWeatherCachePDO) {
+        
+        var locationStr = localStorage.getItem("locationStr");
+        var LocationResult = JSON.parse(locationStr);
+        
     };
 
     // Request weather for the location at the given index for the
@@ -107,6 +122,9 @@ function LocationWeatherCache()
     // weather object for that location.
     // 
     this.getWeatherAtIndexForDate = function(index, date, callback) {
+        
+         var date = new Date();
+         
     };
     
     // This is a callback function passed to forecast.io API calls.
