@@ -55,12 +55,24 @@ function LocationWeatherCache()
     // new location into the cache.  It will have an empty 'forecasts'
     // property.  Returns the index of the added location.
     //
-    this.addLocation = function(latitude, longitude, nickname)
+    this.addLocation = function(lat, long, nick, addr)
     {
         var forecasts = [];
         var latitude = "";
         
-    }
+        var location = {
+            latitude: lat,
+            longitude: long,
+            nickname: nick,
+            formattedAddress: addr,
+            forecasts: {}
+        };
+        
+        locations.push(location);
+        console.log(locations);
+        
+        
+    };
 
     // Removes the saved location at the given index.
     // 
