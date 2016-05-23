@@ -37,7 +37,12 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 */
+//httpForecastLink = 'https://api.forecast.io/forecast/985804686aaa036b3c0400ed94e854d1/-34.397,150.644';
 
+var locationList = []
+var locationWeatherCacheInst = new LocationWeatherCache();
+
+//console.log(locationWeatherCacheInst.getWeatherAtIndexForDate());
 function iMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
@@ -50,7 +55,7 @@ function iMap() {
 
 
   document.getElementById('address').addEventListener('click', function() {
-    geocodeAddress(geocoder, map, true, infowindow);
+    geocodeAddress(geocoder, map, true, infowindow, locationList);
   });
   document.getElementById('Address').addEventListener('input', function() {
     geocodeAddress(geocoder, map, false, infowindow);
@@ -58,12 +63,24 @@ function iMap() {
 
 }
 
-function geocodeAddress(geocoder, resultsMap, isClicked, infowindow) {
+function geocodeAddress(geocoder, resultsMap, isClicked, infowindow, locationList) {
   var address = document.getElementById('Address').value;
   geocoder.geocode({'address': address}, function(results, status) {
     if (status === google.maps.GeocoderStatus.OK && isClicked == true) {
       isClicked = false;
       resultsMap.setCenter(results[0].geometry.location);
+      var nickname = document.getElementById('submitname').value;
+      var nickString= JSON.stringify(nickname);
+      localStorage.setItem("nickname", nickString);
+      returnAndSave(locationList);
+      var lat = results[0].geometry.location.lat();
+      var long = results[0].geometry.location.lng();
+      var addr = results[0].formatted_address;
+      
+      locationWeatherCacheInst.addLocation(lat, long, nickname, addr);
+      
+      var test;
+      
       //console.log(results[0].formatted_address)
       var marker = new google.maps.Marker({
         map: resultsMap,
@@ -92,13 +109,17 @@ function geocodeAddress(geocoder, resultsMap, isClicked, infowindow) {
   });
 }
 
+
+
 var nickname = document.getElementById('submitname').value;
 var nickString= JSON.stringify(nickname);
-localStorage.setItem("nickname",nickString);
+localStorage.setItem("nickname", nickString);
                                         
-function returnAndSave()
+function returnAndSave(locationList)
 {
-    locationList.innerHTML = getstorage();
+    locationListItem = getstorage();
+    locationList.push(locationListItem);
+    console.log(locationList[0] + locationList[1]);
 }
 
 var output= "";
@@ -109,6 +130,10 @@ function getstorage (){
     str2 = localStorage.getItem("address");
     result1 = JSON.parse(str1);//transfer the string back to the object again
     result2 = JSON.parse(str2);
-    output+= result1 + "</br>" + result2 + "</br>";
+    output+= result1 + "</br>" + JSON.stringify(result2) + "</br>";
+    resultContainer = [result1, JSON.stringify(result2)];
+    //console.log(output);
+    return resultContainer;
 }
+
 
