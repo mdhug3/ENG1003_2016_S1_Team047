@@ -47,7 +47,7 @@ function LocationWeatherCache()
     this.locationAtIndex = function(index) {
         for (i=0; i<=locations.length; i++ )
             {
-                return locations[i];
+                return location[i];
             }
     };
 
@@ -71,9 +71,6 @@ function LocationWeatherCache()
         locations.push(location);
         console.log(locations);
         
-        //var position = {latitude:latitude, longitude:longitude, nickname:nickname, forecasts: ""};
-        //locations.push(position);
-        //return locations[0];
         
     };
 
@@ -81,11 +78,6 @@ function LocationWeatherCache()
     // 
     this.removeLocationAtIndex = function(index)
     {
-        var ind= locations.indexOf(index);
-        if (ind != -1)
-            {
-                locations.splice(ind,1);
-            }
         
     }
 
@@ -94,10 +86,7 @@ function LocationWeatherCache()
     // are active web service requests and so doesn't need to be saved.
     //
     this.toJSON = function() {
-        
-        var locationString = JSON.stringify(locations);
-        localStorage.setItem("locationStr",locationString);
-        
+        return(JSON.stringify(locations));
     };
 
     // Given a public-data-only version of the class (such as from
@@ -105,10 +94,6 @@ function LocationWeatherCache()
     // instance to match that version.
     //
     this.initialiseFromPDO = function(locationWeatherCachePDO) {
-        
-        var locationStr = localStorage.getItem("locationStr");
-        var LocationResult = JSON.parse(locationStr);
-        
     };
 
     // Request weather for the location at the given index for the
@@ -122,9 +107,11 @@ function LocationWeatherCache()
     // weather object for that location.
     // 
     this.getWeatherAtIndexForDate = function(index, date, callback) {
-        
-         var date = new Date();
-         
+        var url = "https://api.forecast.io/forecast/985804686aaa036b3c0400ed94e854d1/-34.397,150.644&callback=locationWeatherCacheInst.weatherResponse";
+        var script = document.createElement("script");
+        script.src = url;
+        document.body.appendChild(script);
+        console.log("api call made");
     };
     
     // This is a callback function passed to forecast.io API calls.
@@ -134,6 +121,7 @@ function LocationWeatherCache()
     // weather request.
     //
     this.weatherResponse = function(response) {
+        console.log(response);
     };
 
     // Private methods:
