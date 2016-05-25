@@ -12,6 +12,21 @@
         <meta name="mobile-web-app-capable" content="yes" />
         <link rel="shortcut icon" sizes="196x196" href="images/icon.png" />
         <link rel="apple-touch-icon-precomposed" href="images/icon.png" />
+        
+         <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 60%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 30%;
+      }
+            
+            
+                  </style>
     </head>
     
     <body>
@@ -25,20 +40,40 @@
               <span class="mdl-layout-title" id="headerBarTitle">View Location</span>
             </div>
           </header>
-
+  <div id="map"></div>
           <main class="mdl-layout__content">
             <div class="content-grid mdl-grid">
               <div class="mdl-cell">
                 <!--   Main page content here:   -->  
-                
+                  
+         <div align = "center" id="icon"></div>
+                   <div align = "center" id="sky"></div>
+         <div align="center" class="wind">
+	    <span id="wind">0</span> mph
+	  </div>
+            <div align="center" class="wind">
+	    <span id="humidity">0</span>
+	  </div>
+                   <div align="center" id="maxtemp">0
+	  </div>
+                   <div align="center"
+	    id="mintemp">0
+	  </div>
+              
               
               </div>
             </div>
           </main>    
         </div>
+          
 
         <!--   JavaScript files:   -->
         <script src="js/locationWeatherCache.js"></script>
         <script src="js/viewLocationPage.js"></script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJOkG833UBlrPV_thgv6S-uV2_7W2wx6A&callback=initMap"
+    async defer></script>
+        <script src=https://api.forecast.io/forecast/46af65ac0abfab351265d3796df6f9bd/-34.397,150.644?callback=weatherinformation></script>
+        
     </body>
 </html>
+
