@@ -80,7 +80,10 @@ function LocationWeatherCache()
     // 
     this.removeLocationAtIndex = function(index)
     {
-        
+        if (0 <= index && index < locations.length) {
+            locations.splice(index, 1);
+        }
+        saveLocations();
     }
 
     // This method is used by JSON.stringify() to serialise this class.
