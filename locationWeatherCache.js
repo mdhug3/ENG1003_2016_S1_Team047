@@ -57,19 +57,21 @@ function LocationWeatherCache()
     //
     this.addLocation = function(lat, long, nick, addr)
     {
-        var forecasts = [];
-        var latitude = "";
-        
-        var location = {
-            latitude: lat,
-            longitude: long,
-            nickname: nick,
-            formattedAddress: addr,
-            forecasts: {}
-        };
-        
-        locations.push(location);
-        console.log(locations);
+        var locationIndex = indexForLocation(latitude, longitude);
+        if (locationIndex != -1) { // if location is already existed
+            return locationIndex;
+        } else {
+            var len = locations.length;
+            var newLocation = {
+                nickname: nickname,
+                latitude: latitude,
+                longitude: longitude,
+                forecasts: {}
+            }
+            locations.push(newLocation); // newLocation is added to the end of the array, return previous length
+                                         // since array is 0-indexed
+            saveLocations();
+            return len;
         
         
     };
