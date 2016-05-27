@@ -2,6 +2,8 @@
 
 // This is sample code to demonstrate navigation.
 // You need not use it for final app.
+var locationsList = localStorage.getItem("addedLocations");
+var locationWeatherCache = new LocationWeatherCache();
 
 var locationIndex = localStorage.getItem(APP_PREFIX + "-selectedLocation"); 
 if (locationIndex !== null)
@@ -10,58 +12,29 @@ if (locationIndex !== null)
     // If a location name was specified, use it for header bar title.
     document.getElementById("headerBarTitle").textContent = locationNames[locationIndex];
 }
+var div = document.getElementById('locationSummary');
 
-var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -37.9116, lng: 145.1340},
-    zoom: 13
-  });
-    var marker = new google.maps.Marker({
-    position: {lat: -37.9116, lng: 145.1340},
-    map: map,
-    title: "uni"
-  });
-}
+div.innerHTML += '<ul class="mdl-list" id="locationSummary">\
+                             <span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0"\ src="images/loading.png" class="list-avatar" />\
+                             <span> <b>' + locationWeatherCache.getStorage()[0].nick + '</b></span>\
+                             <span></br><b>'+ 'Address: </b>' + locationWeatherCache.getStorage()[0].addr + '</span>\
+                             <span></br><b>'+ 'Weather summary </b>' + '' + '</span>\
+                             <span></br><b>'+ 'Minimum temperature: </b>' + '' + '&deg;C' + '</span>\
+                             <span></br><b>'+ 'Maximum temperature: </b>' + '' + '&deg;C' + '</span>\
+                             <span></br><b>'+ 'Humidity: </b>' + '' + '%' + '</span>\
+                             <span></br><b>'+ 'Windspeed: </b>' + '' + 'km/h' + '</span>';
 
-this.weatherinformation = function(day){
-if(day.currently.icon === "rain"){
-    var image = document.getElementById("icon").innerHTML ;
-    
-    document.getElementById("sky").innerHTML= "Current Weather: Rain";
-} 
-if(day.currently.icon === "partly-cloudy-day"){
-    document.getElementById("icon").innerHTML= ""
-    document.getElementById("sky").innerHTML= "Current Weather: Partly Cloudy Day"
+function iMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: {lat: parseFloat(locationWeatherCache.getStorage()[0].lat), lng: parseFloat(locationWeatherCache.getStorage()[0].long)}
+    });
+    var geocoder = new google.maps.Geocoder();
+    var infowindow = new google.maps.InfoWindow({
+    content: 'test'
+    });
 }
-if(day.currently.icon === "partly-cloudy-night"){
-    document.getElementById("icon").innerHTML= ""
-    document.getElementById("sky").innerHTML= "Current Weather: Partly Cloudy Night"
-}
-if(day.currently.icon === "wind"){
-    document.getElementById("icon").innerHTML= ""
-    document.getElementById("sky").innerHTML= "Current Weather: Wind"
-}
-if(day.currently.icon === "sleet"){
-    document.getElementById("icon").innerHTML= '<img  scr="sleet.png">'
-    document.getElementById("sky").innerHTML= "Current Weather: Sleet"
-}
-if(day.currently.icon === "fog"){
-    document.getElementById("icon").innerHTML= ""
-    document.getElementById("sky").innerHTML= "Current Weather: Fog"
-}
-if(day.currently.icon === "clear-night"){
-    document.getElementById("icon").innerHTML= ""
-    document.getElementById("sky").innerHTML= "Current Weather: Clear Night";
-}
-if(day.currently.icon === "snow"){
-    document.getElementById("icon").innerHTML= "";
-    document.getElementById("sky").innerHTML= "Current Weather: Snow";
-}
+iMap();
 
-    
-document.getElementById("maxtemp").innerHTML= "Maximum Temperature:" + day.daily.data[0].temperatureMax;
-document.getElementById("mintemp").innerHTML= "Minimum tempertature:" + day.daily.data[0].temperatureMin;
-document.getElementById("wind").innerHTML = "Windspeed:"+ day.currently.windSpeed;
-document.getElementById("humidity").innerHTML = "Humidity: " + day.currently.humidity + " %";
-}
+
+
