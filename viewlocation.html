@@ -12,21 +12,13 @@
         <meta name="mobile-web-app-capable" content="yes" />
         <link rel="shortcut icon" sizes="196x196" href="images/icon.png" />
         <link rel="apple-touch-icon-precomposed" href="images/icon.png" />
-        
-         <style>
-        #map {
-                width: 100%;
-                height: 50%;
-                background-color: #CCC;
-              }
-        </style>
     </head>
     
     <body>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
           <header class="mdl-layout__header">
-              <button onclick="location.href = 'index.html';" class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon"> 
+              <button onclick="back()" class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon"> 
                 <i class="material-icons">arrow_back</i>
               </button>
             <div class="mdl-layout__header-row">
@@ -35,17 +27,30 @@
           </header>
 
           <main class="mdl-layout__content">
-              <p style="slider">
-                    <input class="mdl-slider mdl-js-slider" type="range" min="0" max="30" value="30"/>
-              </p>
             <div class="content-grid mdl-grid">
-              <div class="mdl-cell" id="locationSummary">
-                <!--   Main page content here:   -->  
-                   <ul class="mdl-list" id="locationSummary">
-                
-                  </ul>
+              <!--   Main page content here:   -->  
+              <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
+                <ul class="mdl-list">
+                  <li class="mdl-list__item">
+                      <b><span id="dateField"></span></b>
+                  </li>
+                  <li class="mdl-list__item">
+                    <input class="mdl-slider mdl-js-slider" type="range" min="1" max="30" value="30" id="dateSlider" oninput="updateDate()">
+                  </li>
+                  <li class="mdl-list__item mdl-list__item--five-line">
+                    <span class="mdl-list__item-primary-content" id="weatherSummary">
+                      <span>Loading...</span>
+                    </span>
+                  </li>
+                </ul>
               </div>
-                <div id="map"></div>
+              <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" id="removeBtn" onclick="removeLocation()">
+                  Remove location
+                </button>
+              </div>
+              <div class="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet" id="map">
+              </div>
             </div>
           </main>    
         </div>
@@ -53,8 +58,8 @@
         <!--   JavaScript files:   -->
         <script src="js/locationWeatherCache.js"></script>
         <script src="js/viewLocationPage.js"></script>
-        <!-- added later -->
-        <script src="https://maps.googleapis.com/maps/api/js?v=3&amp;key=&amp;callback=iMap" async defer></script>
-        <script src="https://api.forecast.io/forecast/985804686aaa036b3c0400ed94e854d1/-34.397,150.644"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3&amp;key=&amp;&callback=loadLocation"
+        async defer></script>
     </body>
 </html>
+
